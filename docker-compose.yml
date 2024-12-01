@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  api1:
+    build: ./api1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api2
+  api2:
+    build: ./api2
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27018:27017" # le pongo 27018 porque en mi PC ya tengo corriendo mongo en el 27017
+    volumes:
+      - ./mongo/data:/data/db
